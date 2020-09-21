@@ -1,0 +1,9 @@
+<app-profile></app-profile>
+<div>
+    <ul class="nav nav-pill nav-justified">
+      <!-- href works sync : reload the page-->
+      <!-- href with [routerLink] : async -->
+      <li class="nav-item"><a class="nav-link btn-primary" href="/post-list" [routerLink]="['/post']">My Posts</a></li>
+      <li class="nav-item"><a class="nav-link btn-primary" href="/new-post" [routerLink]="['/new-post']">Add New</a></li>
+    </ul>
+</div>
