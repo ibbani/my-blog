@@ -1,0 +1,22 @@
+node {
+	def mvnHome
+	def dockerHome
+	stage('Checkout'){
+		git url: 'file://Users/manju_kogunde/Work/LTITraining/my-blog', branch : 'master'
+		// Global Tool Management > Maven Installations > Name = Local Maven
+		mvnHome = tool 'Local Maven'
+		// Global Tool Management > Docker Installations > Name = MyDocker
+		dockerHome = tool 'MyDocker'
+	}
+	stage('Build'){
+		bat(/"${mvnHome}\bin\mvn" clean package/)
+	}
+	stage('Create image'){
+		// Add docker maven dependency in pom.xml
+		bat(/"${dockerHome}\Docker\resources\bin\docker" build -t jenkins-build:latest ./)
+	}
+	
+	stage('Run'){
+		bat(/"${dockerHome}\Docker\resources\bin\docker" run -p 5000:5000 jenkins-build:latest ./)
+	}
+}
